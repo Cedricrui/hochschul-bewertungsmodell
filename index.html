@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>EduMarket Scorecard</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="header-inner">
+        <div class="brand-block">
+          <p class="eyebrow">Lokaler Prototyp</p>
+          <h1>EduMarket Scorecard</h1>
+        </div>
+
+        <form id="startForm" class="start-form">
+          <label for="institutionInput">Name der Universität/Hochschule eingeben</label>
+          <div class="input-line">
+            <div class="search-wrapper">
+              <input id="institutionInput" name="institution" type="text" autocomplete="off" placeholder="z. B. FOM Hochschule" aria-autocomplete="list" aria-controls="institutionSuggestions">
+              <div id="institutionSuggestions" class="suggestions-list" role="listbox" hidden></div>
+            </div>
+            <button type="submit">Bewertung starten</button>
+          </div>
+        </form>
+
+        <div class="demo-picker">
+          <label for="demoSelect">Demo-Institution</label>
+          <div class="input-line">
+            <select id="demoSelect"></select>
+            <button id="loadDemoButton" type="button">Demo-Institution auswählen</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="content-band comparison-panel">
+        <div class="section-heading compact">
+          <div>
+            <p class="eyebrow">Vergleich</p>
+            <h2>Zwei Institutionen gegenüberstellen</h2>
+          </div>
+        </div>
+
+        <form id="comparisonForm" class="comparison-form">
+          <label for="comparisonInputA">Institution A</label>
+          <input id="comparisonInputA" list="institutionOptions" type="text" autocomplete="off" placeholder="z. B. FH Münster">
+
+          <label for="comparisonInputB">Institution B</label>
+          <input id="comparisonInputB" list="institutionOptions" type="text" autocomplete="off" placeholder="z. B. FOM Hochschule">
+
+          <button type="submit">Vergleich starten</button>
+        </form>
+
+        <datalist id="institutionOptions"></datalist>
+        <div id="comparisonResult" class="comparison-result" hidden></div>
+      </section>
+
+      <section id="emptyState" class="empty-state">
+        <div>
+          <p class="eyebrow">Modell aus der Excel-Datei</p>
+          <h2>Bewertung nach Markt, Anbieter, Regulatorik, Skalierbarkeit und Chancen-Risiken.</h2>
+        </div>
+      </section>
+
+      <section id="dashboard" class="dashboard" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Bewertung</p>
+            <h2 id="institutionTitle"></h2>
+          </div>
+          <div class="toolbar">
+            <button id="exportButton" type="button">Als JSON exportieren</button>
+            <button id="resetButton" type="button">Bewertung zurücksetzen</button>
+            <button id="printButton" type="button">Druckansicht / PDF vorbereiten</button>
+          </div>
+        </div>
+
+        <section class="kpi-grid" aria-live="polite">
+          <article class="kpi-card">
+            <span>Gesamtscore</span>
+            <strong id="totalScore"></strong>
+            <small id="totalScoreFive"></small>
+          </article>
+          <article class="kpi-card">
+            <span>Empfehlung</span>
+            <strong id="recommendation"></strong>
+            <small id="recommendationRange"></small>
+          </article>
+          <article class="kpi-card">
+            <span>Stärkste Kategorie</span>
+            <strong id="strongestCategory"></strong>
+            <small id="strongestScore"></small>
+          </article>
+          <article class="kpi-card">
+            <span>Schwächste Kategorie</span>
+            <strong id="weakestCategory"></strong>
+            <small id="weakestScore"></small>
+          </article>
+        </section>
+
+        <section class="content-band">
+          <div class="section-heading compact">
+            <div>
+              <p class="eyebrow">Kategorie-Zusammenfassung</p>
+              <h3>Score je Kategorie</h3>
+            </div>
+          </div>
+          <div id="categorySummary" class="category-summary"></div>
+        </section>
+
+        <section class="content-band">
+          <div class="section-heading compact">
+            <div>
+              <p class="eyebrow">Bewertungs-Tabelle</p>
+              <h3>Kategorien, Indikatoren, Gewichtungen und Beiträge</h3>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="score-table">
+              <thead>
+                <tr>
+                  <th>Kategorie</th>
+                  <th>Kategoriegewicht</th>
+                  <th>Indikator</th>
+                  <th>Indikatorgewicht</th>
+                  <th>Gesamtgewicht</th>
+                  <th>Score</th>
+                  <th>Normiert</th>
+                  <th>Beitrag</th>
+                  <th>Kurzbegründung / Input</th>
+                </tr>
+              </thead>
+              <tbody id="scoreTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="content-band chance-risk-band">
+          <div class="section-heading compact">
+            <div>
+              <p class="eyebrow">Chancen-Risiken</p>
+              <h3>Matrix-Auszug</h3>
+            </div>
+          </div>
+          <div id="chanceRiskSummary" class="chance-risk-summary"></div>
+        </section>
+
+        <section class="source-footnote">
+          <div class="section-heading compact">
+            <div>
+              <p class="eyebrow">Quellen / Recherche</p>
+              <h3>Quellenhinweise</h3>
+            </div>
+          </div>
+          <div id="sourceArea" class="source-area"></div>
+          <label class="notes-label" for="researchNotes">Recherche-Notizen</label>
+          <textarea id="researchNotes" class="research-notes" rows="4"></textarea>
+        </section>
+      </section>
+    </main>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
