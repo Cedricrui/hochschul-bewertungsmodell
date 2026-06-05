@@ -1,6 +1,6 @@
 # EduMarket Scorecard
 
-Diese lokale Web-App bewertet eine Universität oder Hochschule nach dem Bewertungsmodell aus `Arlinghaus Präsi.xlsx`. Sie nutzt die Kategorien, Gewichtungen, 1-bis-5-Scorelogik und den Gesamtscore-Roll-up aus der Excel-Datei.
+Diese lokale Web-App bewertet eine Universität oder Hochschule nach einem Excel-basierten Bewertungsmodell. Sie nutzt die Kategorien, Gewichtungen, 1-bis-5-Scorelogik und den Gesamtscore-Roll-up aus der Referenzdatei.
 
 ## Lokal starten
 
